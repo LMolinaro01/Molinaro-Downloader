@@ -3,9 +3,6 @@
 Este projeto é uma aplicação de desktop desenvolvida em Python que permite aos usuários baixar vídeos do YouTube em formatos MP4 ou MP3. A aplicação utiliza as bibliotecas `tkinter` e `customtkinter` para a interface gráfica, `pytube` para o download de vídeos do YouTube, e `moviepy` para a conversão de arquivos de vídeo em áudio MP3.
 
 ![image](https://github.com/LMolinaro01/YouTube-Downloader/assets/126402616/b309ec19-c7a9-4849-b8ae-d023219f6150)
-![image](https://github.com/LMolinaro01/YouTube-Downloader/assets/126402616/b4ca285d-cc43-43de-a06b-b9984d55688e)
-
-
 
 ## Funcionalidades
 
@@ -16,6 +13,8 @@ Este projeto é uma aplicação de desktop desenvolvida em Python que permite ao
 - Tratamento de Exceções
 
 ## Uso
+
+![image](https://github.com/LMolinaro01/YouTube-Downloader/assets/126402616/b4ca285d-cc43-43de-a06b-b9984d55688e)
 
 1. Execute o script Python.
 2. Na janela da aplicação, insira o link do vídeo do YouTube que deseja baixar.
