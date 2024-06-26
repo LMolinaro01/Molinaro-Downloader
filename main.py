@@ -1,8 +1,15 @@
 import tkinter as tk
 from tkinter import filedialog
+from PIL import Image, ImageTk
+import requests
+from io import BytesIO
 import customtkinter
-from pytube import YouTube
+from pytube import YouTube, exceptions
 from moviepy.editor import AudioFileClip
+import os
+
+# exibir mensagem quando "is age restricted, and can't be accessed without logging in."
+# python -m auto_py_to_exe
 
 QUALITY_OPTIONS = ['MP4', 'MP3']
 
@@ -49,12 +56,28 @@ def realizar_download():
                     # Excluir o arquivo de vídeo original (opcional)
                     os.remove(arquivo)
                     
-
                 # Atualizar status de download concluído
                 label_status.configure(text="Download Concluído!", text_color="white")
                 label_titulo.configure(text=youtube_object.title, text_color="white")
+
+                # Mostrar a thumbnail do vídeo
+                mostrar_thumbnail(youtube_object.thumbnail_url)
         else:
             label_status.configure(text="Não foi possível encontrar uma stream disponível.", text_color="red")
+    except exceptions.VideoPrivate:
+        label_status.configure(text="Vídeo não pode ser acessado devido a direitos autorais.", text_color="red")
+    except exceptions.MembersOnly:
+        label_status.configure(text="Vídeo só pode ser acessado por Membros.", text_color="red")
+    except exceptions.HTMLParseError:
+        label_status.configure(text="HTML não pôde ser analisado.", text_color="red")
+    except exceptions.LiveStreamError:
+        label_status.configure(text="Não é possivel baixar uma live stream.", text_color="red")
+    except exceptions.VideoRegionBlocked:
+        label_status.configure(text="Vídeo não disponível na sua região.", text_color="red")
+    except exceptions.AgeRestrictedError:
+        label_status.configure(text="Vídeo não pode ser baixado devido a restrições de idade.", text_color="red")
+    except exceptions.VideoUnavailable:
+        label_status.configure(text="Vídeo indisponível.", text_color="red")
     except Exception as e:
         label_status.configure(text="Erro ao Realizar o Download", text_color="red")
         print(e)
@@ -75,15 +98,31 @@ def atualizar_progresso(stream, chunk, bytes_restantes):
     except Exception as e:
         print(f"Erro ao atualizar progresso: {e}")
 
+def mostrar_thumbnail(thumbnail_url):
+    try:
+        response = requests.get(thumbnail_url)
+        img_data = response.content
+        img = Image.open(BytesIO(img_data))
+        img = img.resize((320, 180), Image.LANCZOS)
+        img_tk = ImageTk.PhotoImage(img)
+        
+        label_thumbnail.configure(image=img_tk)
+        label_thumbnail.image = img_tk  # Manter uma referência da imagem para não ser coletada pelo garbage collector
+    except Exception as e:
+        print(f"Erro ao carregar a thumbnail: {e}")
+
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("dark-blue")
 
 janela = customtkinter.CTk()
-janela.geometry("720x480")
-janela.title("YouTube Downloader")
+janela.geometry("720x650")
+janela.title("Molinaro's Downloader")
 
 label_titulo = customtkinter.CTkLabel(janela, text="Video Link", font=("Consolas bold", 17))
 label_titulo.pack(padx=10, pady=10)
+
+label_thumbnail = customtkinter.CTkLabel(janela, text="")
+label_thumbnail.pack(pady=10)
 
 url = tk.StringVar()
 entrada_link = customtkinter.CTkEntry(janela, width=550, height=40, textvariable=url)
