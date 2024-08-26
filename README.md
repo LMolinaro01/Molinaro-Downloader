@@ -1,6 +1,6 @@
 # Molinaro's Downloader V2.0
 
-Molinaro's Downloader é uma aplicação de desktop desenvolvida em Python que permite aos usuários baixar vídeos do YouTube em formatos MP4 ou MP3. A aplicação utiliza as bibliotecas `Tkinter` e `Custom Tkinter` para a interface gráfica, e `yt-dlp` para realizar os downloads de vídeos do YouTube de forma eficiente e precisa.
+Molinaro's Downloader é uma aplicação de desktop desenvolvida em Python que permite aos usuários baixar vídeos do YouTube em formatos MP4 ou M4A. A aplicação utiliza as bibliotecas `Tkinter` e `Custom Tkinter` para a interface gráfica, e `yt-dlp` para realizar os downloads de vídeos do YouTube de forma eficiente e precisa.
 
 ![image](https://github.com/LMolinaro01/YouTube-Downloader/assets/126402616/b309ec19-c7a9-4849-b8ae-d023219f6150)
 
