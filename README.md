@@ -4,9 +4,8 @@ Molinaro's Downloader é uma aplicação de desktop desenvolvida em Python que p
 
 ![image](https://github.com/LMolinaro01/YouTube-Downloader/assets/126402616/b309ec19-c7a9-4849-b8ae-d023219f6150)
 
-## Novidades na Versão 2.X
+## Novidades na Versão 2.1
 
-- **Integração com `yt-dlp`:** Agora a aplicação utiliza `yt-dlp` para downloads, permitindo maior compatibilidade com diferentes formatos de vídeo e áudio.
 <!-- - **Estimativa de Tamanho do Arquivo:** A aplicação agora exibe uma estimativa do tamanho do arquivo antes de solicitar ao usuário o diretório de salvamento. -->
 - **Barra de Progresso Aprimorada:** A barra de progresso foi melhorada para refletir o status do download em tempo real, oferecendo feedback visual mais preciso.
 - **Horário:** Exibe um relógio minimalista atualizado em tempo real.
