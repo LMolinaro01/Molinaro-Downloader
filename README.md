@@ -1,34 +1,44 @@
-# Molinaro's Downloader V2.1
+# Molinaro's Downloader - Versão 3.0
 
-Molinaro's Downloader é uma aplicação de desktop desenvolvida em Python que permite aos usuários baixar vídeos do YouTube em formatos MP4 ou M4A. A aplicação utiliza as bibliotecas `Tkinter` e `Custom Tkinter` para a interface gráfica, e `yt-dlp` para realizar os downloads de vídeos do YouTube de forma eficiente e precisa.
+**Molinaro's Downloader** é uma aplicação Python desenvolvida com Tkinter e CustomTkinter, projetada para facilitar o download de vídeos e áudios do YouTube. A versão 3.0 traz melhorias significativas, incluindo a capacidade de gerar PDFs com transcrições detalhadas usando a API GPT-3 da OpenAI.
 
-![image](https://github.com/LMolinaro01/YouTube-Downloader/assets/126402616/b309ec19-c7a9-4849-b8ae-d023219f6150)
+![Interface Principal](https://github.com/LMolinaro01/YouTube-Downloader/assets/126402616/b309ec19-c7a9-4849-b8ae-d023219f6150)
 
-## Novidades na Versão 2.1
+## Novidades na Versão 3.0
 
-<!-- - **Estimativa de Tamanho do Arquivo:** A aplicação agora exibe uma estimativa do tamanho do arquivo antes de solicitar ao usuário o diretório de salvamento. -->
-- **Barra de Progresso Aprimorada:** A barra de progresso foi melhorada para refletir o status do download em tempo real, oferecendo feedback visual mais preciso.
-- **Horário:** Exibe um relógio minimalista atualizado em tempo real.
+- **Integração com a API OpenAI**: Utiliza a GPT-3 para criar resumos e transcrições organizadas dos vídeos. A API da OpenAI é essencial para transformar as descrições dos vídeos em transcrições detalhadas.
+- **Geração de PDF**: Converte vídeos em PDFs com transcrições, proporcionando uma maneira prática de armazenar e compartilhar o conteúdo dos vídeos.
+- **Interface Melhorada**: Atualizações na interface gráfica para proporcionar uma experiência de usuário mais intuitiva e eficiente.
 
-![image](https://github.com/user-attachments/assets/60ee3c6c-9c90-4062-b9be-da63e20f875b)
+![Exemplo de PDF](https://github.com/user-attachments/assets/60ee3c6c-9c90-4062-b9be-da63e20f875b)
 
 ## Funcionalidades
 
-- **Seleção do Diretório de Destino:** O usuário pode selecionar onde deseja salvar os arquivos baixados.
-- **Download em MP4 e M4A:** Permite baixar vídeos em formato MP4 ou áudio em formato M4A com conversão automática.
-- **Barra de Progresso:** Mostra o andamento do download em tempo real.
-  <!-- - **Estimativa do Tamanho do Arquivo:** Mostra uma estimativa do tamanho do arquivo antes do download começar. -->
-- **Exibição de Thumbnail:** Exibe a miniatura do vídeo após o início do download.
-- **Tratamento de Exceções:** A aplicação lida com erros comuns, garantindo que o usuário seja informado caso algo dê errado.
-- **Horário:** Exibe um relógio minimalista atualizado em tempo real.
+- **Seleção do Diretório de Destino**: O usuário pode selecionar onde deseja salvar os arquivos baixados e os PDFs gerados.
+- **Download em MP4 e M4A**: Permite baixar vídeos em formato MP4 ou áudio em formato M4A.
+- **Geração de PDF**: Para vídeos selecionados, o aplicativo pode gerar um PDF com a transcrição do conteúdo do vídeo.
+- **Exibição de Thumbnail**: Mostra a miniatura do vídeo diretamente na interface.
+- **Barra de Progresso**: Mostra o andamento do download em tempo real.
+- **Tratamento de Exceções**: A aplicação lida com erros comuns e mostra mensagens de status apropriadas.
 
 ## Funcionamento
 
-![image](https://github.com/LMolinaro01/YouTube-Downloader/assets/126402616/b4ca285d-cc43-43de-a06b-b9984d55688e)
+![Interface do Aplicativo](https://github.com/LMolinaro01/YouTube-Downloader/assets/126402616/b4ca285d-cc43-43de-a06b-b9984d55688e)
 
-1. Execute o script Python.
-2. Na janela da aplicação, insira o link do vídeo do YouTube que deseja baixar.
-3. Selecione o formato desejado (MP4 ou M4A) usando a combobox.
-4. Clique no botão "Download".
-5. Selecione o diretório onde deseja salvar o arquivo baixado.
-6. Acompanhe a barra de progresso e as mensagens de status para verificar o andamento do download.
+1. **Execute o script Python**.
+2. **Insira o link do vídeo do YouTube** que deseja baixar.
+3. **Escolha o formato desejado** (Vídeo, Áudio ou PDF) usando a combobox.
+4. **Clique no botão "Download"**.
+5. **Selecione o diretório onde deseja salvar o arquivo baixado ou o PDF**.
+6. **Acompanhe a barra de progresso e as mensagens de status** para verificar o andamento do download e a criação do PDF.
+
+
+## Configuração
+
+1. **Chave de API da OpenAI**: Substitua `"chaveapi"` no código pela sua chave de API da OpenAI. A API GPT-3 é utilizada para criar resumos e transcrições detalhadas dos vídeos.
+
+   ```python
+   openai.api_key = "chaveapi"
+   ```
+
+2. **Inicialização do Aplicativo**: O código cria uma interface gráfica com as opções de download e geração de PDF.
