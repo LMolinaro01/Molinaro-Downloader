@@ -25,7 +25,7 @@
 
 ![Interface do Aplicativo](https://github.com/LMolinaro01/YouTube-Downloader/assets/126402616/b4ca285d-cc43-43de-a06b-b9984d55688e)
 
-1. **Execute o script Python**.
+1. **Execute o Script Python**.
 2. **Insira o link do vídeo do YouTube** que deseja baixar.
 3. **Escolha o formato desejado** (Vídeo, Áudio ou PDF) usando a combobox.
 4. **Clique no botão "Download"**.
