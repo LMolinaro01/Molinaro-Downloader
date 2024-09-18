@@ -43,6 +43,7 @@
 
 2. **Inicialização do Aplicativo**: O código cria uma interface gráfica com as opções de download e geração de PDF.
 
+
 ## **Contato**
 
 Se você tiver dúvidas ou precisar de mais informações, sinta-se a vontade para entrar em [Contato](https://linktr.ee/leomolinarodev01)!
