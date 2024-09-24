@@ -1,4 +1,4 @@
-# Molinaro's Downloader - Versão 3.0
+# Molinaro's Downloader - Versão 3.0 (Beta)
 
 **Molinaro's Downloader** é uma aplicação Python desenvolvida com Tkinter e CustomTkinter, projetada para facilitar o download de vídeos e áudios do YouTube. A versão 3.0 traz melhorias significativas, incluindo a capacidade de gerar PDFs com transcrições detalhadas usando a API GPT-3 da OpenAI.
 
