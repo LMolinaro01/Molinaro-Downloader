@@ -80,6 +80,73 @@ def realizar_download():
 
         diretorio_destino = selecionar_diretorio()
 
+        # Adicione o caminho para o arquivo de cookies
+        cookies_path = "cookies.txt"  # Certifique-se de criar este arquivo com os cookies do YouTube
+
+        ydl_opts = {}
+        if combobox_var.get() == 'Video':
+            ydl_opts = {
+                'format': 'best[ext=mp4]',  # Melhor vídeo em MP4
+                'outtmpl': os.path.join(diretorio_destino, '%(title)s.%(ext)s'),
+                'progress_hooks': [hook_progresso],
+                'nocolor': True,
+                'cookiefile': cookies_path,  # Adiciona o arquivo de cookies
+            }
+        elif combobox_var.get() == 'Audio':
+            ydl_opts = {
+                'format': 'bestaudio[ext=m4a]',  # Melhor áudio em M4A
+                'outtmpl': os.path.join(diretorio_destino, '%(title)s.%(ext)s'),
+                'progress_hooks': [hook_progresso],
+                'nocolor': True,
+                'cookiefile': cookies_path,  # Adiciona o arquivo de cookies
+            }
+        elif combobox_var.get() == 'PDF':
+            ydl_opts = {
+                'format': 'best[ext=mp4]',  # Melhor vídeo para transcrição
+                'outtmpl': os.path.join(diretorio_destino, '%(title)s.%(ext)s'),
+                'progress_hooks': [hook_progresso],
+                'nocolor': True,
+                'cookiefile': cookies_path,  # Adiciona o arquivo de cookies
+            }
+
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(link_video, download=False)
+            video_title = info_dict.get('title', None)
+            video_description = info_dict.get('description', 'Descrição indisponível')
+            thumbnail_url = info_dict.get('thumbnail', None)
+
+            label_titulo.configure(text=video_title, text_color="white")
+
+            # Se for a opção PDF, fazer a transcrição e gerar o PDF
+            if combobox_var.get() == 'PDF':
+                # Baixar o vídeo primeiro
+                ydl.download([link_video])
+
+                # Baixar a thumbnail
+                thumbnail_path = None
+                if thumbnail_url:
+                    thumbnail_path = baixar_thumbnail(thumbnail_url, diretorio_destino)
+
+                # Gerar a transcrição
+                transcricao = transcrever_video(video_title, video_description)
+
+                # Gerar o PDF
+                gerar_pdf(diretorio_destino, video_title, thumbnail_path, transcricao)
+            else:
+                # Download de vídeo ou áudio
+                ydl.download([link_video])
+
+    except Exception as e:
+        label_status.configure(text=f"Erro: {str(e)}", text_color="red")
+        print(e)
+    try:
+        link_video = entrada_link.get()
+
+        if not link_video.strip():
+            raise ValueError("O link do vídeo está vazio.")
+
+        diretorio_destino = selecionar_diretorio()
+
         ydl_opts = {}
         if combobox_var.get() == 'Video':
             ydl_opts = {
