@@ -1,3 +1,10 @@
+'''Explicação das Alterações:
+Chave de API: Substituí a chave da OpenAI pela chave do DeepSeek (DEEPSEEK_API_KEY).
+
+Função transcrever_video: Agora, a função faz uma chamada HTTP POST para a API do DeepSeek. O corpo da requisição é semelhante ao que você usaria com a OpenAI, mas a URL e os cabeçalhos são específicos para o DeepSeek.
+
+Tratamento de Erros: Adicionei um tratamento de erro para capturar exceções relacionadas a problemas de rede ou respostas inválidas da API.'''
+
 import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk
@@ -8,11 +15,10 @@ import yt_dlp
 import os
 from time import strftime
 import fpdf  # Biblioteca para gerar PDF
-import openai  # Biblioteca para GPT-3
 import re  # Biblioteca para sanitizar nomes de arquivos
 
-# Cole sua chave de API da OpenAI aqui
-openai.api_key = "suachaveapi"
+# Cole sua chave de API do DeepSeek aqui
+DEEPSEEK_API_KEY = "suachaveapi"
 
 QUALITY_OPTIONS = ['Video', 'Audio', 'PDF']
 
@@ -29,17 +35,25 @@ def selecionar_diretorio():
 
 def transcrever_video(video_title, video_description):
     try:
-        response = openai.Completion.create(
-            model="text-davinci-003",  # Usando o modelo GPT-3
-            prompt=f"Título: {video_title}\nDescrição: {video_description}\nGere um resumo e uma transcrição organizada.",
-            max_tokens=1500,
-            temperature=0.7,
+        # Configuração da chamada para a API do DeepSeek
+        headers = {
+            "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
+            "Content-Type": "application/json"
+        }
+        data = {
+            "prompt": f"Título: {video_title}\nDescrição: {video_description}\nGere um resumo e uma transcrição organizada.",
+            "max_tokens": 1500,
+            "temperature": 0.7,
+        }
+        response = requests.post(
+            "https://api.deepseek.com/v1/completions",  # URL da API do DeepSeek
+            headers=headers,
+            json=data
         )
-        transcricao = response['choices'][0]['text'].strip()
+        response.raise_for_status()
+        transcricao = response.json()['choices'][0]['text'].strip()
         return transcricao
-    except openai.error.RateLimitError:
-        return "Erro: Cota excedida. Por favor, verifique seu plano e detalhes de cobrança."
-    except openai.error.OpenAIError as e:
+    except requests.exceptions.RequestException as e:
         return f"Erro ao transcrever o vídeo: {e}"
 
 def sanitize_filename(filename):
@@ -72,73 +86,6 @@ def gerar_pdf(diretorio_destino, video_title, thumbnail_path, transcricao):
         label_status.configure(text=f"Erro ao criar PDF: {str(e)}", text_color="red")
 
 def realizar_download():
-    try:
-        link_video = entrada_link.get()
-
-        if not link_video.strip():
-            raise ValueError("O link do vídeo está vazio.")
-
-        diretorio_destino = selecionar_diretorio()
-
-        # Adicione o caminho para o arquivo de cookies
-        cookies_path = "cookies.txt"  # Certifique-se de criar este arquivo com os cookies do YouTube
-
-        ydl_opts = {}
-        if combobox_var.get() == 'Video':
-            ydl_opts = {
-                'format': 'best[ext=mp4]',  # Melhor vídeo em MP4
-                'outtmpl': os.path.join(diretorio_destino, '%(title)s.%(ext)s'),
-                'progress_hooks': [hook_progresso],
-                'nocolor': True,
-                'cookiefile': cookies_path,  # Adiciona o arquivo de cookies
-            }
-        elif combobox_var.get() == 'Audio':
-            ydl_opts = {
-                'format': 'bestaudio[ext=m4a]',  # Melhor áudio em M4A
-                'outtmpl': os.path.join(diretorio_destino, '%(title)s.%(ext)s'),
-                'progress_hooks': [hook_progresso],
-                'nocolor': True,
-                'cookiefile': cookies_path,  # Adiciona o arquivo de cookies
-            }
-        elif combobox_var.get() == 'PDF':
-            ydl_opts = {
-                'format': 'best[ext=mp4]',  # Melhor vídeo para transcrição
-                'outtmpl': os.path.join(diretorio_destino, '%(title)s.%(ext)s'),
-                'progress_hooks': [hook_progresso],
-                'nocolor': True,
-                'cookiefile': cookies_path,  # Adiciona o arquivo de cookies
-            }
-
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info_dict = ydl.extract_info(link_video, download=False)
-            video_title = info_dict.get('title', None)
-            video_description = info_dict.get('description', 'Descrição indisponível')
-            thumbnail_url = info_dict.get('thumbnail', None)
-
-            label_titulo.configure(text=video_title, text_color="white")
-
-            # Se for a opção PDF, fazer a transcrição e gerar o PDF
-            if combobox_var.get() == 'PDF':
-                # Baixar o vídeo primeiro
-                ydl.download([link_video])
-
-                # Baixar a thumbnail
-                thumbnail_path = None
-                if thumbnail_url:
-                    thumbnail_path = baixar_thumbnail(thumbnail_url, diretorio_destino)
-
-                # Gerar a transcrição
-                transcricao = transcrever_video(video_title, video_description)
-
-                # Gerar o PDF
-                gerar_pdf(diretorio_destino, video_title, thumbnail_path, transcricao)
-            else:
-                # Download de vídeo ou áudio
-                ydl.download([link_video])
-
-    except Exception as e:
-        label_status.configure(text=f"Erro: {str(e)}", text_color="red")
-        print(e)
     try:
         link_video = entrada_link.get()
 
