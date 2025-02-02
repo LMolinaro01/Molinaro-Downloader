@@ -1,3 +1,10 @@
+'''Explicação das Alterações:
+Chave de API: Substituí a chave da OpenAI pela chave do DeepSeek (DEEPSEEK_API_KEY).
+
+Função transcrever_video: Agora, a função faz uma chamada HTTP POST para a API do DeepSeek. O corpo da requisição é semelhante ao que você usaria com a OpenAI, mas a URL e os cabeçalhos são específicos para o DeepSeek.
+
+Tratamento de Erros: Adicionei um tratamento de erro para capturar exceções relacionadas a problemas de rede ou respostas inválidas da API.'''
+
 import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk
