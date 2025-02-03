@@ -1,7 +1,3 @@
-Aqui está a versão atualizada do texto com a API do DeepSeek mencionada:  
-
----
-
 # Molinaro's Downloader - Versão 3.1 (Beta)
 
 Aplicação em Python desenvolvida com Tkinter e CustomTkinter, projetada para facilitar o download de vídeos e áudios do YouTube. A versão 3.1 traz melhorias significativas, incluindo a capacidade de gerar PDFs com transcrições detalhadas usando a API do DeepSeek.
