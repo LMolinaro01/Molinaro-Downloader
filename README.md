@@ -32,7 +32,7 @@ Aplicação em Python desenvolvida com Tkinter e CustomTkinter, projetada para f
 5. **Selecione o diretório onde deseja salvar o arquivo baixado ou o PDF**.  
 6. **Acompanhe a barra de progresso e as mensagens de status** para verificar o andamento do download e a criação do PDF.  
 
-## Configuração
+## Configuração da Chave API
 
 1. **Chave de API do DeepSeek**: Substitua `"sua_chave_api"` no código pela sua chave de API do DeepSeek. Essa API é utilizada para criar resumos e transcrições detalhadas dos vídeos.  
 
